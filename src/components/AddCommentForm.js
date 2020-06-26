@@ -1,8 +1,20 @@
 import React, { useState } from 'react';
 
-const AddCommentForm = () => {
+const AddCommentForm = ({ articleName, setArticleInfo }) => {
   const [username, setUsername] = useState('');
   const [commentText, setCommentText] = useState('');
+
+  const addComment = async () => {
+    const result = await fetch(`/api/articles/${articleName}/add-comment`, {
+      method: 'post',
+      body: JSON.stringify({ username, text: commentText }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const body = await result.json();
+    setArticleInfo(body);
+  };
 
   return (
     <div className="add-comment-form">
@@ -25,7 +37,7 @@ const AddCommentForm = () => {
         />
       </label>
 
-      <button>Add comment</button>
+      <button onClick={() => addComment()}>Add comment</button>
     </div>
   );
 };
