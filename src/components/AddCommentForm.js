@@ -14,10 +14,12 @@ const AddCommentForm = ({ articleName, setArticleInfo }) => {
     });
     const body = await result.json();
     setArticleInfo(body);
+    setUsername('');
+    setCommentText('');
   };
 
   return (
-    <div className="add-comment-form">
+    <div id="add-comment-form">
       <h3>Add a Comment</h3>
       <label>
         Name:
@@ -36,9 +38,9 @@ const AddCommentForm = ({ articleName, setArticleInfo }) => {
           onChange={(event) => setCommentText(event.target.value)}
         />
       </label>
-
-      <button onClick={() => addComment()}>Add comment</button>
+      <button onClick={() => addComment()}>Add Comment</button>
     </div>
   );
 };
+
 export default AddCommentForm;
